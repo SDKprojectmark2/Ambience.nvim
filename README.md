@@ -57,5 +57,5 @@ require("ambience").setup({
 
 ## Credits
 
-Built with assistance from [Claude Sonnet 4.6](https://claude.ai) by Anthropic.
+###### Built with assistance from [Claude Sonnet 4.6](https://claude.ai) by Anthropic.
 
