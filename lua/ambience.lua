@@ -88,26 +88,7 @@ function M.setup(opts)
 		end,
 	})
 
-	vim.keymap.set("n", config.keymaps.toggle, M.toggle, { desc = "Pause/Resume ambience music" })
-	vim.keymap.set("n", config.keymaps.stop, M.stop, { desc = "Stop ambience music" })
-	vim.keymap.set("n", config.keymaps.switch, M.switch, { desc = "switch ambience track" })
-end
-
-function M.setup(opts)
-	config = vim.tbl_deep_extend("force", defaults, opts or {})
-
-	vim.api.nvim_create_autocmd("VimEnter", {
-		callback = function()
-			M.start()
-		end,
-	})
-
-	vim.api.nvim_create_autocmd("VimLeave", {
-		callback = function()
-			M.stop()
-		end,
-	})
-
+	vim.notify(vim.inspect(config.keymaps), vim.log.levels.INFO)
 	vim.keymap.set("n", config.keymaps.toggle, M.toggle, { desc = "Pause/Resume ambience music" })
 	vim.keymap.set("n", config.keymaps.stop, M.stop, { desc = "Stop ambience music" })
 	vim.keymap.set("n", config.keymaps.switch, M.switch, { desc = "switch ambience track" })
