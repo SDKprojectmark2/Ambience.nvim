@@ -13,25 +13,7 @@ local config = {}
 local job_id = nil
 local paused = false
 
-function M.setup(opts)
-	config = vim.tbl_deep_extend("force", defaults, opts or {})
 
-	vim.api.nvim_create_autocmd("VimEnter", {
-		callback = function()
-			M.start()
-		end,
-	})
-
-	vim.api.nvim_create_autocmd("VimLeave", {
-		callback = function()
-			M.stop()
-		end,
-	})
-
-	vim.keymap.set("n", config.keymaps.toggle, M.toggle, { desc = "Pause/Resume ambience music" })
-	vim.keymap.set("n", config.keymaps.stop, M.stop, { desc = "Stop ambience music" })
-	vim.keymap.set("n", config.keymaps.switch, M.switch, { desc = "switch ambience track" })
-end
 
 function M.start()
 	if vim.fn.filereadable("/tmp/ambience-socket") == 1 then
@@ -89,6 +71,46 @@ function M.switch()
 	M.stop()
 	-- start and stop ambience
 	M.start()
+end
+
+function M.setup(opts)
+	config = vim.tbl_deep_extend("force", defaults, opts or {})
+
+	vim.api.nvim_create_autocmd("VimEnter", {
+		callback = function()
+			M.start()
+		end,
+	})
+
+	vim.api.nvim_create_autocmd("VimLeave", {
+		callback = function()
+			M.stop()
+		end,
+	})
+
+	vim.keymap.set("n", config.keymaps.toggle, M.toggle, { desc = "Pause/Resume ambience music" })
+	vim.keymap.set("n", config.keymaps.stop, M.stop, { desc = "Stop ambience music" })
+	vim.keymap.set("n", config.keymaps.switch, M.switch, { desc = "switch ambience track" })
+end
+
+function M.setup(opts)
+	config = vim.tbl_deep_extend("force", defaults, opts or {})
+
+	vim.api.nvim_create_autocmd("VimEnter", {
+		callback = function()
+			M.start()
+		end,
+	})
+
+	vim.api.nvim_create_autocmd("VimLeave", {
+		callback = function()
+			M.stop()
+		end,
+	})
+
+	vim.keymap.set("n", config.keymaps.toggle, M.toggle, { desc = "Pause/Resume ambience music" })
+	vim.keymap.set("n", config.keymaps.stop, M.stop, { desc = "Stop ambience music" })
+	vim.keymap.set("n", config.keymaps.switch, M.switch, { desc = "switch ambience track" })
 end
 
 return M
