@@ -16,10 +16,8 @@ local paused = false
 
 
 function M.start()
-	if vim.fn.filereadable("/tmp/ambience-socket") == 1 then
-		return
-	end
-	-- Check for empty track
+	if job_id then return end -- Check for empty track
+
 	if not config.tracks or #config.tracks == 0 then
 		vim.notify("Please add tracks in opts", vim.log.levels.ERROR, { title = "🎶 Ambience" })
 		return -- luacheck: ignore
@@ -33,13 +31,11 @@ function M.start()
 	local track_name = track[1]
 	local track_url = track[2]
 
-	if not job_id then
-		job_id =
-				vim.fn.jobstart("mpv --no-video --loop --no-terminal --input-ipc-server=/tmp/ambience-socket " .. track_url)
-		vim.defer_fn(function()
-			vim.notify("Playing: " .. track_name, vim.log.levels.INFO, { title = "🎶 Ambience" })
-		end, config.delay)
-	end
+	job_id =
+			vim.fn.jobstart("mpv --no-video --loop --no-terminal --input-ipc-server=/tmp/ambience-socket " .. track_url)
+	vim.defer_fn(function()
+		vim.notify("Playing: " .. track_name, vim.log.levels.INFO, { title = "🎶 Ambience" })
+	end, config.delay)
 end
 
 function M.stop()
@@ -88,7 +84,6 @@ function M.setup(opts)
 		end,
 	})
 
-	vim.notify(vim.inspect(config.keymaps), vim.log.levels.INFO)
 	vim.keymap.set("n", config.keymaps.toggle, M.toggle, { desc = "Pause/Resume ambience music" })
 	vim.keymap.set("n", config.keymaps.stop, M.stop, { desc = "Stop ambience music" })
 	vim.keymap.set("n", config.keymaps.switch, M.switch, { desc = "switch ambience track" })
