@@ -34,6 +34,9 @@ function M.setup(opts)
 end
 
 function M.start()
+	-- Check for empty track
+	if not config.tracks or #config.tracks == 0 then vim.notify("Please add tracks in opts", vim.log.levels.ERROR) end
+
 	-- Pick a random track from the list of tracks
 	local index = math.random(#config.tracks)
 	-- Get the data of the track ( name, url )
@@ -44,7 +47,7 @@ function M.start()
 
 	if not job_id then
 		job_id =
-			vim.fn.jobstart("mpv --no-video --loop --no-terminal --input-ipc-server=/tmp/ambience-socket " .. track_url)
+				vim.fn.jobstart("mpv --no-video --loop --no-terminal --input-ipc-server=/tmp/ambience-socket " .. track_url)
 		vim.defer_fn(function()
 			vim.notify("Playing: " .. track_name, vim.log.levels.INFO, { title = "🎶 Ambience" })
 		end, config.delay)
@@ -81,3 +84,5 @@ function M.switch()
 	-- start and stop ambience
 	M.start()
 end
+
+return M
