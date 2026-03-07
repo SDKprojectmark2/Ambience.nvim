@@ -13,10 +13,16 @@ local config = {}
 local job_id = nil
 local paused = false
 
-
+local function is_ambience_runniing()
+	local result = vim.fn.system('echo \'{"command":["get_version"]}\' | socat - /tmp/ambience-socket 2>/dev/null')
+	return result ~= ""
+end
 
 function M.start()
-	if job_id then return end -- Check for empty track
+	if job_id or is_ambience_runniing then
+		vim.notify("Ambience already playing", vim.log.levels.DEBUG, { title = "🎶 Ambience" })
+		return
+	end -- Check for empty track
 
 	if not config.tracks or #config.tracks == 0 then
 		vim.notify("Please add tracks in opts", vim.log.levels.ERROR, { title = "🎶 Ambience" })
@@ -32,7 +38,7 @@ function M.start()
 	local track_url = track[2]
 
 	job_id =
-			vim.fn.jobstart("mpv --no-video --loop --no-terminal --input-ipc-server=/tmp/ambience-socket " .. track_url)
+		vim.fn.jobstart("mpv --no-video --loop --no-terminal --input-ipc-server=/tmp/ambience-socket " .. track_url)
 	vim.defer_fn(function()
 		vim.notify("Playing: " .. track_name, vim.log.levels.INFO, { title = "🎶 Ambience" })
 	end, config.delay)
