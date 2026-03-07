@@ -34,6 +34,9 @@ function M.setup(opts)
 end
 
 function M.start()
+	if vim.fn.filereadable("/tmp/ambience-socket") == 1 then
+		return
+	end
 	-- Check for empty track
 	if not config.tracks or #config.tracks == 0 then
 		vim.notify("Please add tracks in opts", vim.log.levels.ERROR, { title = "🎶 Ambience" })
