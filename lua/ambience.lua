@@ -13,7 +13,7 @@ local defaults = {
 local config = {}
 local job_id = nil
 local paused = false
-
+local switching = false
 local last_index = nil
 
 function M.start()
@@ -82,14 +82,16 @@ function M.switch()
 		if not choice then
 			return
 		end
+		switching = true
 		M.stop()
 		local track = config.tracks[idx]
 		last_index = idx
 		job_id = vim.fn.jobstart("mpv --no-video --no-terminal --input-ipc-server=/tmp/ambience-socket " .. track[2], {
 			on_exit = function()
-				if job_id ~= nil then
+				if job_id ~= nil and not switching then
 					M.start()
 				end
+				switching = false
 			end,
 		})
 		vim.defer_fn(function()
