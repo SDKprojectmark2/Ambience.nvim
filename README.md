@@ -40,6 +40,26 @@ require("ambience").setup({
     switch = "<leader>as",  -- switch to random track
   },
 })
+
+### Lualine Integraton
+
+Ambience.nvim exposes a `now_playing()` function that can be used to display the
+current track in your statusline.
+
+### [lualine.nvim](https://github.com/nvim-lualine/lualine.nvim)
+
+```
+```lua
+
+```
+```
+```
+```
+  ```
+  ```
+```
+
+
 ```
 
 ## Keymaps
@@ -48,11 +68,12 @@ require("ambience").setup({
 |-----|--------|
 | `<leader>at` | Toggle pause/resume |
 | `<leader>ap` | Stop ambience |
-| `<leader>as` | Switch to random track |
+| `<leader>as` | Switch to a selected track |
+| `<leader>ay` | Start ambience |
 
 ## Notes
 
-- Tracks are played in random order and loop indefinitely
+- Tracks are played at start in a random order.
 
 ## Credits
 

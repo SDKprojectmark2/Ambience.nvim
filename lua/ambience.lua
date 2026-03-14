@@ -6,6 +6,7 @@ local defaults = {
 		toggle = "<leader>at",
 		stop = "<leader>ap",
 		switch = "<leader>as",
+		start = "<leader>ay",
 	},
 }
 
@@ -34,8 +35,13 @@ function M.start()
 	local track_name = track[1]
 	local track_url = track[2]
 
-	job_id =
-		vim.fn.jobstart("mpv --no-video --loop --no-terminal --input-ipc-server=/tmp/ambience-socket " .. track_url)
+	job_id = vim.fn.jobstart("mpv --no-video  --no-terminal --input-ipc-server=/tmp/ambience-socket " .. track_url, {
+		on_exit = function()
+			if job_id ~= nil then
+				M.start()
+			end
+		end,
+	})
 	vim.defer_fn(function()
 		vim.notify("Playing: " .. track_name, vim.log.levels.INFO, { title = "🎶 Ambience" })
 	end, config.delay)
@@ -78,8 +84,13 @@ function M.switch()
 		M.stop()
 		local track = config.tracks[idx]
 		last_index = idx
-		job_id =
-			vim.fn.jobstart("mpv --no-video --loop --no-terminal --input-ipc-server=/tmp/ambience-socket " .. track[2])
+		job_id = vim.fn.jobstart("mpv --no-video --no-terminal --input-ipc-server=/tmp/ambience-socket " .. track[2], {
+			on_exit = function()
+				if job_id ~= nil then
+					M.start()
+				end
+			end,
+		})
 		vim.defer_fn(function()
 			vim.notify("Playing: " .. track[1], vim.log.levels.INFO, { title = "🎶 Ambience" })
 		end, config.delay)
@@ -115,6 +126,7 @@ function M.setup(opts)
 	vim.keymap.set("n", config.keymaps.toggle, M.toggle, { desc = "Pause/Resume ambience music" })
 	vim.keymap.set("n", config.keymaps.stop, M.stop, { desc = "Stop ambience music" })
 	vim.keymap.set("n", config.keymaps.switch, M.switch, { desc = "switch ambience track" })
+	vim.keymap.set("n", config.keymaps.start, M.start, { desc = "start ambience track" })
 end
 
 return M
