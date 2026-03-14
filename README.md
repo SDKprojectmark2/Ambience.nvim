@@ -13,6 +13,7 @@ Using [lazy.nvim](https://github.com/folke/lazy.nvim):
 ```lua
 {
   "futurekismo-oss/ambience.nvim",
+  lazy = false,
   config = function()
     require("ambience").setup({
       tracks = {
@@ -68,12 +69,13 @@ This will display `🎶 Track Name` when playing and `⏸ Track Name` when pause
 |-----|--------|
 | `<leader>at` | Toggle pause/resume |
 | `<leader>ap` | Stop ambience |
-| `<leader>as` | Switch to a selected track |
+| `<leader>as` | open track picker |
 | `<leader>ay` | Start ambience |
 
 ## Notes
 
-- Tracks are played at start in a random order.
+- Tracks play in random order and auto-switch to a new random track when one ends
+- The same track won't play twice in a row
 
 ## Credits
 
