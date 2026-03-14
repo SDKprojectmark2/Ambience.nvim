@@ -13,6 +13,8 @@ local config = {}
 local job_id = nil
 local paused = false
 
+local last_index = nil
+
 function M.start()
 	if not config.tracks or #config.tracks == 0 then
 		vim.notify("Please add tracks in opts", vim.log.levels.ERROR, { title = "🎶 Ambience" })
@@ -20,7 +22,12 @@ function M.start()
 	end
 
 	-- Pick a random track from the list of tracks
-	local index = math.random(#config.tracks)
+	local index
+	repeat
+		index = math.random(#config.tracks)
+	until index ~= last_index or #config.tracks == 1
+	last_index = index
+
 	-- Get the data of the track ( name, url )
 	local track = config.tracks[index]
 
@@ -60,12 +67,37 @@ function M.toggle()
 end
 
 function M.switch()
-	M.stop()
-	-- start and stop ambience
-	M.start()
+	local names = {}
+	for _, track in ipairs(config.tracks) do
+		table.insert(names, track[1])
+	end
+	vim.ui.select(names, { prompt = " 🎶 Select track:" }, function(choice, idx)
+		if not choice then
+			return
+		end
+		M.stop()
+		local track = config.tracks[idx]
+		last_index = idx
+		job_id =
+			vim.fn.jobstart("mpv --no-video --loop --no-terminal --input-ipc-server=/tmp/ambience-socket " .. track[2])
+		vim.defer_fn(function()
+			vim.notify("Playing: " .. track[1], vim.log.levels.INFO, { title = "🎶 Ambience" })
+		end, config.delay)
+	end)
+end
+
+function M.now_playing()
+	if job_id == nil then
+		return ""
+	end
+	if paused then
+		return " " .. (config.tracks[last_index] and config.tracks[last_index][1] or "")
+	end
+	return "🎶 " .. (config.tracks[last_index] and config.tracks[last_index][1] or "")
 end
 
 function M.setup(opts)
+	math.randomseed(os.time())
 	config = vim.tbl_deep_extend("force", defaults, opts or {})
 
 	vim.api.nvim_create_autocmd("VimEnter", {
