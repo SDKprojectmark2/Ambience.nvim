@@ -34,7 +34,6 @@ function M.start()
     write_playlist()
     job_id = vim.fn.jobstart(
         "mpv --no-video --no-terminal --loop-playlist=inf --shuffle --network-timeout=0 --input-ipc-server=" .. socketfile .. " " .. playlist,
-        {}
     )
     vim.defer_fn(function()
         vim.notify("Ambience started", vim.log.levels.INFO, { title = "🎶 Ambience" })
